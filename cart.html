@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Forge — вишлист</title>
+<title>Forge - вишлист</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
@@ -45,6 +45,7 @@
   import { watchAuthUI } from "./js/auth.js";
   import { initBurger } from "./js/burger.js";
   import { cardTemplate } from "./js/game-card.js";
+  import { initCurrency } from "./js/currency.js";
   import { attachWishlistHandlers } from "./js/wishlist.js";
   import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
   import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -79,13 +80,14 @@
       wishlisted: wishlistSlugs.has(g.id)
     })).join("");
 
-    // 1. после удаления из вишлиста карточка на этой странице больше не нужна — перерисуем список
+  
     grid.querySelectorAll(".wishlist-btn").forEach(btn => btn.addEventListener("click", () => {
       setTimeout(() => { if (!wishlistSlugs.has(btn.dataset.id)) btn.closest(".card").remove(); }, 300);
     }));
   }
 
   attachWishlistHandlers(wishlistRef);
+  await initCurrency();
   onAuthStateChanged(auth, render);
   watchAuthUI();
   initBurger();
