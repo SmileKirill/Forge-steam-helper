@@ -46,6 +46,7 @@
   import { watchAuthUI } from "./js/auth.js";
   import { initBurger } from "./js/burger.js";
   import { cardTemplate } from "./js/game-card.js";
+  import { initCurrency } from "./js/currency.js";
   import { attachWishlistHandlers } from "./js/wishlist.js";
   import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
   import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
@@ -80,6 +81,7 @@
   }
 
   attachWishlistHandlers(wishlistRef);
+  await initCurrency();
   onAuthStateChanged(auth, render);
   watchAuthUI();
   initBurger();
